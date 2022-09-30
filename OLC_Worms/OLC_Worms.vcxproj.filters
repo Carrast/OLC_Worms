@@ -18,9 +18,15 @@
     <ClCompile Include="OLC_Worms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OLC_Worms_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="olcConsoleGameEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OLC_Worms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
