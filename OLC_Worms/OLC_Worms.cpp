@@ -56,8 +56,17 @@ protected:
         // mouse button right
         if (m_mouse[1].bReleased)
         {
-                cDummy* p = new cDummy(m_mousePosX + fCameraPosX, m_mousePosY + fCameraPosY);
-                listObjects.push_back(std::unique_ptr<cDummy>(p));
+            //cDummy* p = new cDummy(m_mousePosX + fCameraPosX, m_mousePosY + fCameraPosY);
+            //listObjects.push_back(std::unique_ptr<cDummy>(p));
+            cWorm* p = new cWorm(m_mousePosX + fCameraPosX, m_mousePosY + fCameraPosY);
+            listObjects.push_back(std::unique_ptr<cWorm>(p));
+        }
+
+        // mouse button middle
+        if (m_mouse[2].bReleased)
+        {
+            cMissile* p = new cMissile(m_mousePosX + fCameraPosX, m_mousePosY + fCameraPosY);
+            listObjects.push_back(std::unique_ptr<cMissile>(p));
         }
 
         //  mouse map scroll
@@ -146,10 +155,15 @@ protected:
                     if (p->nBounceBeforeDeath > 0)
                     {
                         p->nBounceBeforeDeath--;
-                        if (p->nBounceBeforeDeath < 1)
-                            p->bDead = true;
+                        p->bDead = p->nBounceBeforeDeath == 0;
+                        
+                        // if the object is dead, work out what to do next
+                        // = 0 nothing
+                        // > 0 explosion
+                        int nResponse = p->BounceDeathAction();
+                        if (nResponse > 0)
+                            Boom(p->px, p->py, nResponse);
                     }
-
                 }
                 else
                 {
@@ -165,16 +179,6 @@ protected:
             // remove objects flagged with bDead
             listObjects.remove_if([](std::unique_ptr<cPhysicsObject> &po) {return po->bDead; });
         }
-
-        // remove objects from gamespace
-        //for (auto& o : listObjects)
-        //{
-        //    auto i = std::remove_if(listObjects.begin(), listObjects.end(), [&](cPhysicsObject p) {return (p.py >= nMapHeight); });
-        //    if (i != listObjects.end())
-        //    {
-        //        listObjects.erase(i);
-        //    }
-        //}
 
         // draw landscape
         for (int x = 0; x < ScreenWidth(); x++)
@@ -205,7 +209,9 @@ protected:
         return true;
     }
 
+// -----------------------------------------------------------------------------
 // --- SPECIAL FUNCTIONS ---
+// -----------------------------------------------------------------------------
 protected:
     void CreateMap()
     {
@@ -284,7 +290,7 @@ protected:
         // launch debris
         for (int i = 0; i < (int)fRadius; i++)
         {
-            cDebris* p = new cDebris(m_mousePosX + fCameraPosX, m_mousePosY + fCameraPosY);
+            cDebris* p = new cDebris(fWorldX, fWorldY);
             listObjects.push_back(std::unique_ptr<cDebris>(p));
         }
     }

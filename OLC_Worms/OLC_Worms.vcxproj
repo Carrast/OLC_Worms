@@ -147,6 +147,9 @@
     <ClInclude Include="olcConsoleGameEngine.h" />
     <ClInclude Include="OLC_Worms.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="worms.spr" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
