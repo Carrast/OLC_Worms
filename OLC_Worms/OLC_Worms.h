@@ -20,8 +20,8 @@ public:
     float ay = 0.0f;
 
     float radius = 4.0f;    // circle for collision check
-    bool bStable = false; // has object stopped moving
-    float fFriction = 0.8f;  // energy loss
+    bool bStable = false;   // has object stopped moving
+    float fFriction = 0.8f; // energy loss
 
     int nBounceBeforeDeath = -1;
     bool bDead = false;
@@ -199,3 +199,4 @@ private:
 };
 
 olcSprite* cWorm::sprWorm = nullptr;
+

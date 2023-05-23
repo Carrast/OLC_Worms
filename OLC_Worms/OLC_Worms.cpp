@@ -50,7 +50,7 @@ protected:
         // mouse button left
         if (m_mouse[0].bReleased)
         {
-            Boom(m_mousePosX + fCameraPosX, m_mousePosY + fCameraPosY, 10);
+            Boom(m_mousePosX + fCameraPosX, m_mousePosY + fCameraPosY, 10.0f);
         }
 
         // mouse button right
@@ -58,6 +58,7 @@ protected:
         {
             //cDummy* p = new cDummy(m_mousePosX + fCameraPosX, m_mousePosY + fCameraPosY);
             //listObjects.push_back(std::unique_ptr<cDummy>(p));
+
             cWorm* p = new cWorm(m_mousePosX + fCameraPosX, m_mousePosY + fCameraPosY);
             listObjects.push_back(std::unique_ptr<cWorm>(p));
         }
